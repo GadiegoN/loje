@@ -4,11 +4,11 @@ import { Phone } from "lucide-react";
 import { CLIENTS } from "@/data/clients";
 import { HeaderClient } from "@/components/layout";
 
-interface PageProps {
-  params: {
+type PageProps = {
+  params: Promise<{
     slug: string;
-  };
-}
+  }>;
+};
 
 export function generateStaticParams() {
   return CLIENTS.map((client) => ({ slug: client.slug }));
@@ -16,6 +16,7 @@ export function generateStaticParams() {
 
 export default async function ComercioPage({ params }: PageProps) {
   const { slug } = await params;
+
   const comercio = CLIENTS.find((c) => c.slug === slug);
 
   if (!comercio) return notFound();
